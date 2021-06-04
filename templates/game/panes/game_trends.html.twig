@@ -1,0 +1,17 @@
+{% import 'WCPC2K18Bundle:Base:macros.html.twig' as wcpc %}
+
+<div class="card mt-3">
+    <div class="card-header">
+        <i class="far fa-calendar"></i> Tendances
+    </div>
+    <div class="card-body">
+        {% if predictions | length >= predictionPoolMinSize %}
+            <canvas id="trendsChart"></canvas>
+        {% else %}
+            <div class="alert alert-warning">Le nombre de pronostics saisis n'est pour l'instant pas suffisant pour dégager une tendance. 
+                La tendance apparaîtra dès que {{predictionPoolMinSize}} joueurs auront pronositiqué un score (il manque encore 
+                {{ predictionPoolMinSize - (predictions | length) }}). 
+           </div>
+        {% endif %}
+    </div>
+</div>

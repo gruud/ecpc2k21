@@ -1,0 +1,34 @@
+{% extends "WCPC2K18Bundle:Base:layout.html.twig" %}
+
+{% block content %}
+        <div class="row">
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="col-sm-12">
+                    {% include 'game/panes/game_recap.html.twig' %}
+                </div>
+                <div class="col-sm-12">
+                    {% include 'game/panes/game_predictions.html.twig' %}
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-lg-4">
+            {% include 'game/panes/game_trends.html.twig' %}
+        </div>
+    </div>
+    
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% if predictions | length >= predictionPoolMinSize %}
+    <script>
+        /*
+        let data = {{ trendsData | raw }};
+        console.log(data);
+        createGameTrendChart("trendsChart", data);
+        */
+    </script>
+    {% endif %}
+{% endblock javascripts %}

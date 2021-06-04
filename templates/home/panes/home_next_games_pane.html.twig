@@ -1,0 +1,8 @@
+<div class="card mt-3">
+    <div class="card-header">
+        <i class="far fa-calendar"></i> Prochaines rencontres <span class="badge badge-light">{{ nextGames | length }}</span>
+    </div>
+    <div class="card-body next-games-panel-body">
+        {% include 'game/games_item_list.html.twig' with { 'games' : nextGames} %}
+    </div>
+</div>

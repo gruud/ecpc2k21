@@ -1,0 +1,84 @@
+body, html {
+    height: 100%;
+}
+
+
+.bg {
+    /* The image used */
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    filter: contrast(40%);
+    background-image: url("../images/bg.jpg");
+
+    /* Full height */
+    height: 100vh;
+    width: 100vw;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h1.main-title {
+    font-size: 3em;
+    color: #333377;
+}
+
+h2.main-subtitle {
+    font-size: 1em;
+    color: #111144;
+    margin-bottom: 100px;
+}
+
+.card-header {
+    background-color : #002776;
+    color : #efefef;
+    font-weight: bold;
+}
+
+
+.next-games-panel-body {
+    overflow-y: scroll;
+    height: 400px;
+}
+
+.wcpc2k18-table {
+    font-size : 0.9em;
+
+}
+
+.subheader {
+    font-size: 0.85em;
+    color : #999;
+}
+
+.btn-prediction {
+    width: 100px;
+    text-align: left;
+}
+
+.toast-bottom-right {
+    margin: 20px auto;
+
+}
+
+.prediction-badge {
+    display: inline-block;
+    height : 25px;
+    width: 100px;
+    font-size: 1.0em;
+    font-weight: normal;
+}
+
+.leaderboard-connected-user {
+    background-color: #ffc107 !important;
+    font-weight: bold;
+}
+
+a {
+    font-weight: normal;
+    color : #333;
+}

@@ -1,0 +1,38 @@
+{% import 'WCPC2K18Bundle:Base:macros.html.twig' as wcpc %}
+
+<div class="card mt-3">
+    <div class="card-header">
+        <i class="far fa-calendar"></i> Pronostics
+    </div>
+    <div class="card-body">
+        {% if not game.hasStarted %}
+            <div class="alert alert-warning">Les pronostics de tous les joueurs seront
+            affichés une fois la rencontre commencée.</div>
+        {% else %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>Participant</td>
+                        <td>Pronostic</td>
+                        <td>Points</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prediction in predictions %}
+                        <tr>
+                            <td><a href="{{ path('wcpc2k18_user', {'userId' : prediction.user.id } ) }}">{{ wcpc.username(prediction.user) }}</a></td>
+                            <td>{{ wcpc.prediction(prediction) }} </td>
+                            <td>{% if game.goalsHome is not null %}
+                                {{ prediction.points }}{% if prediction.isPerfectlyAccurate %} <i class="fas fa-star"></i>{% endif %}
+                                {% else %}
+                                    <span>-</span>
+                                {% endif %}
+                                </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        
+    </div>
+</div>

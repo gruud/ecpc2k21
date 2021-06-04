@@ -1,0 +1,33 @@
+{% extends "WCPC2K18Bundle:Base:layout.html.twig" %}
+
+{% import 'WCPC2K18Bundle:Base:macros.html.twig' as wcpc %}
+
+
+{% block content %}
+    <div class="col-lg-12">
+      <div class="card mt-3">
+            <div class="card-header">
+                <i class="far fa-calendar"></i> Classements</span>
+            </div>
+            <div class="card-body">
+                
+               <ul id="lb-tabs" role="tablist" class="nav nav-tabs">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general">Général</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="team-tab" data-toggle="tab" href="#team">Classement par équipe</a>
+                  </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active mt-3" id="general" role="tabpanel" aria-labelledby="general-tab">
+                        {% include 'WCPC2K18Bundle:Leaderboard/Leaderboard:leaderboard_general.html.twig' %}
+                    </div>
+                    <div class="tab-pane fade mt-3" id="team" role="tabpanel" aria-labelledby="team-tab">
+                        {% include 'WCPC2K18Bundle:Leaderboard/Leaderboard:leaderboard_crew.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

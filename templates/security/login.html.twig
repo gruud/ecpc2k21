@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col main-title-container">
+                <h1 class="main-title text-center">ECPC2K21</h1>
+                <h2 class="main-subtitle text-center">(European Cup Prediction Contest 2021)</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <div class="card">
+                    <form method="post">
+                    <div class="card-header">
+                        <i class="fas fa-sign-in-alt"></i> Connexion
+                    </div>
+                    <div class="card-body">
+                        <div class="login-errors">
+                            {% if error %}
+                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
+
+                            {% if app.user %}
+                                <div class="mb-3">
+                                    Vous êtes connectés en tant que {{ app.user.email }}, <a href="{{ path('app_logout') }}">Se déconnecter </a>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <input type="hidden" name="_csrf_token"
+                                   value="{{ csrf_token('authenticate') }}"
+                            >
+
+                            <div class="form-group">
+                                <label for="inputEmail">Email</label>
+                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword">Password</label>
+                                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                            </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" class="btn btn-primary btn-lg text-right" id="_submit" name="_submit" value="Connexion" />
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock body %}

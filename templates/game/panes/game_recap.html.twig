@@ -1,0 +1,23 @@
+{% import 'WCPC2K18Bundle:Base:macros.html.twig' as wcpc %}
+ 
+<div class="card mt-3">
+    <div class="card-header">
+        <i class="far fa-calendar"></i> Résumé de la rencontre
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><img class="mr-3 d-none d-lg-inline" src="{{ asset(game.homeTeam | flag(32) ) }}" /> {{ game.homeTeam.name }}</td>
+                    <td>{{ game.goalsHome | default('-') }} </td>
+                </tr>
+                <tr>
+                     <td><img class="mr-3 d-none d-lg-inline" src="{{ asset(game.awayTeam | flag(32) ) }}" /> {{ game.awayTeam.name }}</td>
+                    <td>{{ game.goalsAway | default('-') }} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

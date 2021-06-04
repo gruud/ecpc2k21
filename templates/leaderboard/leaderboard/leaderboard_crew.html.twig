@@ -1,0 +1,28 @@
+{% import 'WCPC2K18Bundle:Base:macros.html.twig' as wcpc %}
+
+
+<div class="card mt-3">
+    <div class="card-header">
+        <i class="far fa-calendar"></i> Classement général par service
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Service</td>
+                    <td>Points</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for crew in crews %}
+                    {% if crew.users | length >= 3 %}
+                    <tr>
+                        <td>{{ crew.name }}</td>
+                        <td>{{ crew.points | number_format(2,".", "") }}</td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

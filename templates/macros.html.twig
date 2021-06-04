@@ -1,0 +1,70 @@
+{% macro predictionButton(game, userPredictions) %}
+    {% import _self as wcpc %}
+
+    
+    {% if userPredictions[game.id] is defined %}
+        {% set predictionDisplay = wcpc.prediction(userPredictions[game.id]) %}
+    {% else %}
+        {% set predictionDisplay = 'Pronostic' %}
+    {% endif %}
+    <a href="{{ path('wcpc2k18_form_prediction', { 'gameId' : game.id}) }}"><button class="btn btn-sm btn-warning btn-prediction"><i class="fas fa-pencil-alt"></i> {{ predictionDisplay }}</button></a>
+    
+{% endmacro %}
+
+{% macro prediction(userPrediction) %}
+    
+    {{ userPrediction.goalsHome }} - {{ userPrediction.goalsAway }} {% if userPrediction.jackpot %} <span class="badge badge-primary">x2</span>{% endif %}
+    
+{% endmacro prediction %}
+
+
+
+{% macro username(user) %}
+    {{ user.firstName }} {{ user.lastName | upper }}
+{% endmacro username %}
+
+
+{% macro predictionBadge(game, userPredictions, predictionChecker) %}
+        {% import _self as wcpc %}
+
+        {% set predictionDisplay = wcpc.prediction(userPredictions[game.id]) %}
+        {% set userPrediction = (userPredictions[game.id] | default('')) %}
+
+        
+        {% if predictionChecker.gameStillClosed(game) %}
+            {# pas encore ouvert #}
+            {% set message = 'Fermée' %}
+            {% set badgeColor = 'dark' %}
+            {% set badgeIcon = "fas fa-lock" %}
+        {% elseif predictionChecker.gameDeadLinePassed(game) and (userPrediction.goalsHome | default(null)) is not null %}
+            {# Fermé avec pronostic validé #}
+            {% set message = predictionDisplay %}
+            {% set badgeColor = 'success' %}
+        {% elseif predictionChecker.gameDeadLinePassed(game) and userPrediction is null %}
+            BIM
+            {# Fermé, pronostic raté #}
+            {% set message = 'Raté!' %}
+            {% set badgeColor = 'danger' %}
+        {% endif %}
+        <span class="prediction-badge badge badge-{{ badgeColor | default('danger')}}"><i class="fas fa-lock mr-2"></i>{{ message | default('?')}}</span>
+
+ {% endmacro %}
+
+{% macro gameResult(game) %}
+    {% if game.goalsHome is not null %}
+        {{ game.goalsHome }} - {{ game.goalsAway }}
+    {% else %}
+        -
+    {% endif %}
+    
+{% endmacro gameResult %}
+
+{% macro comingNextAlert() %}
+    <div class="alert alert-warning"><i class="far fa-warning"></i> Ce panneau est en phase de reprise. Nous l'afficherons dès qu'il sera près physiquement à rentrer sur le terrain!</div>
+{% endmacro comingNextAlert %}
+
+{% macro predictionResult(prediction) %}
+    {{ prediction.goalsHome }} - {{ prediction.goalsAway }} <i class="{{ prediction.points > 0 ? "fa fas-check" : "fas fa-remove"}}"></i>
+        
+    
+{% endmacro predictionResult %}

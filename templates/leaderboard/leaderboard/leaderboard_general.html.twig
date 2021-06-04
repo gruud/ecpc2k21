@@ -1,0 +1,42 @@
+{% import 'macros.html.twig' as wcpc %}
+
+
+<div class="card mt-3">
+    <div class="card-header">
+        <i class="far fa-calendar"></i> Classement général individuel
+    </div>
+    <div class="card-body">
+        {% if leaderboard | length > 0 %}
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Joueur</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% set previousPoints = 0 %}
+                
+                {% for lbitem in leaderboard %}
+                    <tr{% if lbitem.user.id == app.user.id %} class="leaderboard-connected-user"{% endif %}>
+                        <td>
+                            {% if previousPoints == lbitem.points %}
+                                &nbsp;
+                            {% else %}
+                                {{ loop.index }}
+                            {% endif %}
+                        </td>
+                        <td><a href="{{ path('wcpc2k18_user', {'userId' : lbitem.user.id}) }}">{{ wcpc.username(lbitem.user) }}</a></td>
+                        <td>{{ lbitem.points }}</td>
+                    </tr>
+                    {% set previousPoints = lbitem.points %}
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <div class="alert alert-warning text-justify">Le classement n'est pas disponible pour l'instant. Il apparaîtra dès qu'une rencontre aura été jouée</div>
+        {% endif %}
+    </div>
+</div>

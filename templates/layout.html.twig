@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% include "navbar.html.twig" %}
+    <div class="container-fluid">
+    {% block content %}{% endblock content %}
+</div>
+{% endblock body %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": false,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "500",
+            "timeOut": "2500",
+            "extendedTimeOut": "500",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+        {% for type,messages in app.session.flashBag.all %} 
+            {% for message in messages %}
+                toastr['{{type}}']("{{message|e('js')}}");
+            {% endfor %}
+        {% endfor %}
+    </script>
+{% endblock javascripts %}
