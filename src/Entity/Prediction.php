@@ -5,8 +5,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use WCPC2K18Bundle\Entity\User;
-use WCPC2K18Bundle\Entity\Game;
+use App\Entity\User;
+use App\Entity\Game;
 
 /**
  * La classe Prediction implémente le pronostic d'un joueur pour une rencontre

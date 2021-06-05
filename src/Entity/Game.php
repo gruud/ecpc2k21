@@ -229,18 +229,18 @@ class Game {
     /**
      * Récupère le nombre de buts marqués par l'équipe jouant à domicile
      * 
-     * @return integer Le nombre de buts marqués par l'équipe à domicile
+     * @return int|null Le nombre de buts marqués par l'équipe à domicile
      */
-    public function getGoalsHome(): int {
+    public function getGoalsHome(): ?int {
         return $this->goalsHome;
     }
 
     /**
      * Récupère le nombre de buts marqués par l'équipe jouant à l'extérieur
      * 
-     * @return integer Le nmbre de buts marqués par l'équipe à l'extérieur
+     * @return int|null Le nmbre de buts marqués par l'équipe à l'extérieur
      */
-    public function getGoalsAway(): int {
+    public function getGoalsAway(): ?int {
         return $this->goalsAway;
     }
 
@@ -257,9 +257,9 @@ class Game {
      * Récupère le nombre de penalties marqués par l'équipe à domicile durant
      * la séance de tirs aux buts, si cette dernière a eu lieu
      * 
-     * @return integer Le nombre de penalties de l'équipe à domicile
+     * @return int|null Le nombre de penalties de l'équipe à domicile
      */
-    public function getPenaltiesHome(): int {
+    public function getPenaltiesHome(): ?int {
         return $this->penaltiesHome;
     }
 
@@ -267,7 +267,7 @@ class Game {
      * Récupère le nombre de penalties marqués par l'équipe à l'extérieur durant
      * la séance de tirs aux bvuts, si cette dernière a eu lieu
      * 
-     * @return integer Le nombre de penalties de l'équipe à l'extérieur
+     * @return int|null Le nombre de penalties de l'équipe à l'extérieur
      */
     public function getPenaltiesAway(): int {
         return $this->penaltiesAway;

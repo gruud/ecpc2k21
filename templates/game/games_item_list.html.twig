@@ -1,4 +1,4 @@
-{% import 'macros.html.twig' as wcpc %}
+{% import 'macro/macros.html.twig' as wcpc %}
 
 
 <table class="table table-sm table-striped wcpc2k18-table">
@@ -18,11 +18,11 @@
     <tbody>
         {% for game in games %}
         <tr>
-            <td class="game-id"><a href="{{ path('wcpc2k18_game', { 'gameId' : game.id } ) }}">Match {{ game.id }}</a><br><span class="subheader">{{ game.phase }}</span></td>
+            <td class="game-id"><a href="{{ path('ecpc_game', { 'gameId' : game.id } ) }}">Match {{ game.id }}</a><br><span class="subheader">{{ game.phase }}</span></td>
             <td class="game-date"><i class="far fa-clock"></i> {{ game.kickoff | date('d/m H:i') }}</td>
-            <td class="text-right">{{ game.homeTeam.name }}<img class="ml-3 d-none d-lg-inline" src="{{ asset(game.homeTeam | flag(32) ) }}" /></td>
+            <td class="text-end">{{ game.homeTeam.name }}<img class="ms-3" src="{{ asset(game.homeTeam | flag(32) ) }}" /></td>
             <td class="text-center">{{ wcpc.gameResult(game) }}</td>
-            <td class=""><img class="mr-3 d-none d-lg-inline" src="{{ asset(game.awayTeam | flag(32) ) }}"/>{{ game.awayTeam.name }}</td>
+            <td class=""><img class="me-3 d-none d-lg-inline" src="{{ asset(game.awayTeam | flag(32) ) }}"/>{{ game.awayTeam.name }}</td>
             <td>
                 {% if predictionChecker.canPredict(game) %}
                     {{ wcpc.predictionButton(game, userPredictions) }}
@@ -33,8 +33,10 @@
             {% if is_granted('ROLE_ADMIN') %}
                 <td>
                     {% if predictionChecker.canFillGameResult(game) %}
-                        <a href="{{ path('wcpc2k18_form_game', {'gameId' : game.id, 'source' : app.request.uri } ) }}"><button class="btn btn-sm btn-dark"><i class="fas fa-pencil-alt"></i></button></a></td>
+                        <a href="{{ path('ecpc_form_game', {'gameId' : game.id, 'source' : app.request.uri } ) }}"><button class="btn btn-sm btn-secondary"><i class="fas fa-pencil-alt"></i></button></a>
                     {% endif %}
+                </td>
+
             {% endif %}
                 
         </tr>

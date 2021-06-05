@@ -1,0 +1,32 @@
+{% extends "layout.html.twig" %}
+{% import 'macro/macros.html.twig' as wcpc %}
+
+
+{% block content %}
+    <div class="col-lg-12">
+        <div class="card mt-3">
+            <div class="card-header">
+                <i class="far fa-calendar"></i> Utilisateurs enregistrés <span class="badge badge-light">{{ users | length }}</span>
+            </div>
+            <div class="card-body">
+                
+                <table class="table table-sm table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Service</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td><a href="{{ path('ecpc_user', {'userId' : user.id}) }}">{{ wcpc.username(user) }}</a></td>
+                                <td>{{ user.department }} </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

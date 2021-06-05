@@ -1,0 +1,30 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="row">
+        <div class="offset-lg-3 col-lg-6 offset-md-2 col-md-8 offset-sm-1 col-sm-10 mt-3">
+            <div class="card">
+                <div class="card-header">
+                    Votre pronostic pour {{ game.homeTeam.name }} <img  class="ml-1 mr-3" src="{{ asset(game.homeTeam | flag(32) ) }}" />
+                         - <img class="ml-3 mr-1" src="{{ asset(game.awayTeam | flag(32) ) }}" />{{ game.awayTeam.name }}
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    {{ form_row(form.goalsHome) }}
+                    {{ form_row(form.goalsAway) }}
+                    {% if form.jackpot.vars.disabled %}
+                        <div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i> Vous avez déjà misé double sur une autre rencontre pour la journée courante ({{ game.phase }}). Vous ne pouvez doubler seulement sur une rencontre par journée.</div>
+                    {% endif %}
+                    {{ form_row(form.jackpot) }}
+                        <div class="btn-group">
+                            {{ form_row(form.submit, {'attr' : {'class' : 'btn-success mr-3'} }) }}
+                            {{ form_row(form.cancel) }}
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock content %}
+

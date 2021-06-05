@@ -20,8 +20,13 @@ class ECPCExtension extends AbstractExtension {
             new TwigFilter('flag', [$this, 'flagFilter']),
         ];
     }
-    
-    public function flagFilter(Team $team, $size) {
+
+    /**
+     * @param Team $team
+     * @param $size
+     * @return string
+     */
+    public function flagFilter($team, $size) {
         return 'assets/images/flags/' . $size . "/" . mb_strtolower($team->getAbbreviation()) . ".png";
     }
 }

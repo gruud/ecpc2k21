@@ -14,6 +14,8 @@ services:
         bind:
             $predictionStartDelay: "%prediction_start_delay%"
             $predictionEndDelay: "%prediction_end_delay%"
+            $trendsDatapoolMinSize: "%prediction_trends_min_datapool_size%"
+
 
 
 

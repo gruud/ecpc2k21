@@ -1,0 +1,31 @@
+[
+    {"id" : 1,  "name" : "Italie",             "abbr" : "ITA"},
+    {"id" : 2,  "name" : "Suisse",             "abbr" : "SUI"},
+    {"id" : 3,  "name" : "Turquie",            "abbr" : "TUR"},
+    {"id" : 4,  "name" : "Pays de Galles",     "abbr" : "WAL"},
+    
+    {"id" : 5,  "name" : "Belgique",           "abbr" : "BEL"},
+    {"id" : 6,  "name" : "Danemark",           "abbr" : "DAN"},
+    {"id" : 7,  "name" : "Finlande",           "abbr" : "FIN"},
+    {"id" : 8,  "name" : "Russie",             "abbr" : "RUS"},
+    
+    {"id" : 9,  "name" : "Autriche",           "abbr" : "AUT"},
+    {"id" : 10, "name" : "Pays-Bas",           "abbr" : "HOL"},
+    {"id" : 11, "name" : "Macédoine du Nord",  "abbr" : "MAC"},
+    {"id" : 12, "name" : "Ukraine",            "abbr" : "UKR"},
+    
+    {"id" : 13, "name" : "Croatie",            "abbr" : "CRO"},
+    {"id" : 14, "name" : "Rép. Tchèque",       "abbr" : "TCH"},
+    {"id" : 15, "name" : "Angleterre",         "abbr" : "ANG"},
+    {"id" : 16, "name" : "Ecosse",             "abbr" : "SCO"},
+    
+    {"id" : 17, "name" : "Pologne",            "abbr" : "POL"},
+    {"id" : 18, "name" : "Slovaquie",          "abbr" : "SLO"},
+    {"id" : 19, "name" : "Espagne",            "abbr" : "ESP"},
+    {"id" : 20, "name" : "Suède",              "abbr" : "SWE"},
+    
+    {"id" : 21, "name" : "France",             "abbr" : "FRA"},
+    {"id" : 22, "name" : "Allemagne",          "abbr" : "ALL"},
+    {"id" : 23, "name" : "Hongrie",            "abbr" : "HON"},
+    {"id" : 24, "name" : "Portugal",           "abbr" : "POR"}
+]

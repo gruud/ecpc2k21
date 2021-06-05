@@ -2,6 +2,14 @@ body, html {
     height: 100%;
 }
 
+body {
+    background: url('../images/bg.jpg') no-repeat center center fixed;
+    filter: contrast(80%);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
 
 .bg {
     /* The image used */
@@ -9,7 +17,7 @@ body, html {
     left: 0;
     top: 0;
     z-index: -1;
-    filter: contrast(40%);
+    filter: contrast(80%);
     background-image: url("../images/bg.jpg");
 
     /* Full height */
@@ -22,6 +30,7 @@ body, html {
     background-size: cover;
 }
 
+
 h1.main-title {
     font-size: 3em;
     color: #333377;
@@ -30,7 +39,6 @@ h1.main-title {
 h2.main-subtitle {
     font-size: 1em;
     color: #111144;
-    margin-bottom: 100px;
 }
 
 .card-header {

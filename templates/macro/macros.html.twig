@@ -2,12 +2,12 @@
     {% import _self as wcpc %}
 
     
-    {% if userPredictions[game.id] is defined %}
+    {% if (userPredictions | length > 0) and userPredictions[game.id] is defined %}
         {% set predictionDisplay = wcpc.prediction(userPredictions[game.id]) %}
     {% else %}
         {% set predictionDisplay = 'Pronostic' %}
     {% endif %}
-    <a href="{{ path('wcpc2k18_form_prediction', { 'gameId' : game.id}) }}"><button class="btn btn-sm btn-warning btn-prediction"><i class="fas fa-pencil-alt"></i> {{ predictionDisplay }}</button></a>
+    <a href="{{ path('ecpc_form_prediction', { 'gameId' : game.id}) }}"><button class="btn btn-sm btn-warning btn-prediction"><i class="fas fa-pencil-alt"></i> {{ predictionDisplay }}</button></a>
     
 {% endmacro %}
 
@@ -27,17 +27,16 @@
 {% macro predictionBadge(game, userPredictions, predictionChecker) %}
         {% import _self as wcpc %}
 
-        {% set predictionDisplay = wcpc.prediction(userPredictions[game.id]) %}
         {% set userPrediction = (userPredictions[game.id] | default('')) %}
 
-        
         {% if predictionChecker.gameStillClosed(game) %}
             {# pas encore ouvert #}
             {% set message = 'Fermée' %}
-            {% set badgeColor = 'dark' %}
+            {% set badgeColor = 'secondary' %}
             {% set badgeIcon = "fas fa-lock" %}
         {% elseif predictionChecker.gameDeadLinePassed(game) and (userPrediction.goalsHome | default(null)) is not null %}
             {# Fermé avec pronostic validé #}
+            {% set predictionDisplay = wcpc.prediction(userPredictions[game.id]) %}
             {% set message = predictionDisplay %}
             {% set badgeColor = 'success' %}
         {% elseif predictionChecker.gameDeadLinePassed(game) and userPrediction is null %}
@@ -46,7 +45,7 @@
             {% set message = 'Raté!' %}
             {% set badgeColor = 'danger' %}
         {% endif %}
-        <span class="prediction-badge badge badge-{{ badgeColor | default('danger')}}"><i class="fas fa-lock mr-2"></i>{{ message | default('?')}}</span>
+        <span title="Vous ne pouvez pas encore pronostiquer cette rencontre" class="prediction-badge badge bg-{{ badgeColor | default('danger')}}"><i class="fas fa-lock me-2"></i>{{ message | default('?')}}</span>
 
  {% endmacro %}
 

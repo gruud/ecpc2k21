@@ -11,8 +11,11 @@
 </head>
 
 <body>
-<img class="bg" />
-{% block body %}{% endblock body %}
+<div class="bg"></div>
+{% block body %}
+
+{% endblock body %}
+
 
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}

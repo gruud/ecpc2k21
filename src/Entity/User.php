@@ -24,7 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    private $username;
 
     /**
      * @ORM\Column(type="json")
@@ -105,7 +105,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @see UserInterface
      */
     public function getUserIdentifier(): string {
-        return (string) $this->email;
+        return (string) $this->username;
     }
 
     /**
@@ -157,7 +157,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function getUsername() {
-        // TODO: Implement getUsername() method.
+        return $this->username;
     }
 
     public function getLastName(): ?string {
@@ -169,6 +169,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @param mixed $username
+     */
+    public function setUsername($username): void {
+        $this->username = $username;
+    }
+
 
     public function getFirstName(): ?string {
         return $this->firstName;
@@ -203,7 +211,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return ArrayCollection|null La liste des pronostics réalisés par l'utilisateur
      */
-    public function getPredictions(): ?ArrayCollection {
+    public function getPredictions() {
         return $this->predictions;
     }
 

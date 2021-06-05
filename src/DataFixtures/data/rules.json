@@ -1,0 +1,29 @@
+[
+    {
+        "id": 1,
+        "label": "Normal",
+        "pointsWinner": 3,
+        "pointsGA": 4,
+        "pointsPerfect": 5,
+        "jackpot": true,
+        "multiplicator": 2
+    },
+    {
+        "id": 2,
+        "label": "Eliminatoires",
+        "pointsWinner": 4,
+        "pointsGA": 5,
+        "pointsPerfect": 7,
+        "jackpot": true,
+        "multiplicator": 2
+    },
+    {
+        "id": 3,
+        "label": "Finales",
+        "pointsWinner": 12,
+        "pointsGA": 15,
+        "pointsPerfect": 21,
+        "jackpot": false,
+        "multiplicator": 0
+    }
+]

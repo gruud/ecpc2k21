@@ -4,7 +4,7 @@
     </div>
     <div class="card-body">
         {% if lastGames | length > 0 %}
-        {% include 'WCPC2K18Bundle:Game:games_item_list.html.twig' with { 'games' : lastGames} %}
+        {% include 'game/games_item_list.html.twig' with { 'games' : lastGames} %}
         {% else %}
             <div class="alert alert-warning">Aucune rencontre n'a été jouée pour le moment. </div>
         {% endif %}

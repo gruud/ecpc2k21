@@ -10,10 +10,14 @@ import './styles/app.css';
 import './styles/ecpc.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'toastr/build/toastr.min.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 
 // start the Stimulus application
 import './bootstrap';
+
+// Imports complémentaires
 import 'bootstrap';
 import 'toastr';
 import 'chart.js';
+import '@fortawesome/fontawesome-free';

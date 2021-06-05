@@ -1,0 +1,50 @@
+{% extends "layout.html.twig" %}
+{% import 'macro/macros.html.twig' as wcpc %}
+
+{% block content %}
+    <div class="col-lg-12">
+        <div class="card mt-3">
+            <div class="card-header">
+                <i class="far fa-user"></i> {{ wcpc.username(user) }} - {{ user.department }} - Résumé des pronostics</i>
+            </div>
+            <div class="card-body">
+
+                {%  if user.predictions | length > 0 %}
+
+               <table class="table table-sm table-striped">
+                   <thead>
+                       <tr>
+                           <th>#</th>
+                           <th colspan="3" class="text-center">&nbsp;</th>
+                           <th>Pronostic</th>
+                           <th>Points gagnés</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       {% for prediction in user.predictions %}
+                           {% if prediction.game.hasStarted %}
+                           <tr>
+                               <td><a href="{{ path('ecpc_game', {'gameId' : prediction.game.id }) }}">Match {{ prediction.game.id }}</a><br><span class="subheader">{{ prediction.game.phase }}</span></td>
+                                <td class="text-right">{{ prediction.game.homeTeam.name }}<img class="ms-3 d-none d-lg-inline" src="{{ asset(prediction.game.homeTeam | flag(32) ) }}" /></td>
+                                <td class="text-center">{{ wcpc.gameResult(prediction.game) }}</td>
+                                <td class=""><img class="me-3 d-none d-lg-inline" src="{{ asset(prediction.game.awayTeam | flag(32) ) }}"/>{{ prediction.game.awayTeam.name }}</td>
+                                <td>{{ prediction.goalsHome }} - {{ prediction.goalsAway }} </td>
+                                <td>{% if prediction.game.goalsHome is not null %}
+                                {{ prediction.points }}{% if prediction.isPerfectlyAccurate %} <i class="fas fa-star"></i>{% endif %}
+                                {% else %}
+                                    <span>-</span>
+                                {% endif %}
+                                </td>
+                           </tr>
+                           {% endif %}
+                       {% endfor %}
+                   </tbody>
+               </table>
+
+                {% else %}
+                    <div class="alert alert-warning">Aucune prédiction réalisée pour le moment</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,4 +1,4 @@
-{% import 'macros.html.twig' as wcpc %}
+{% import 'macro/macros.html.twig' as wcpc %}
 
 
 <div class="card mt-3">
@@ -28,7 +28,7 @@
                                 {{ loop.index }}
                             {% endif %}
                         </td>
-                        <td><a href="{{ path('wcpc2k18_user', {'userId' : lbitem.user.id}) }}">{{ wcpc.username(lbitem.user) }}</a></td>
+                        <td><a href="{{ path('ecpc_user', {'userId' : lbitem.user.id}) }}">{{ wcpc.username(lbitem.user) }}</a></td>
                         <td>{{ lbitem.points }}</td>
                     </tr>
                     {% set previousPoints = lbitem.points %}
