@@ -22,3 +22,4 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 /src/DataFixtures/data/users.json
+/assets/images/flags/svg/
