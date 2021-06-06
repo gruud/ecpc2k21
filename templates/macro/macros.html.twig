@@ -1,7 +1,5 @@
 {% macro predictionButton(game, userPredictions) %}
     {% import _self as wcpc %}
-
-    
     {% if (userPredictions | length > 0) and userPredictions[game.id] is defined %}
         {% set predictionDisplay = wcpc.prediction(userPredictions[game.id]) %}
     {% else %}
@@ -13,7 +11,7 @@
 
 {% macro prediction(userPrediction) %}
     
-    {{ userPrediction.goalsHome }} - {{ userPrediction.goalsAway }} {% if userPrediction.jackpot %} <span class="badge badge-primary">x2</span>{% endif %}
+    {{ userPrediction.goalsHome }} - {{ userPrediction.goalsAway }} {% if userPrediction.jackpot %} <span class="badge bg-primary">x2</span>{% endif %}
     
 {% endmacro prediction %}
 
@@ -34,18 +32,20 @@
             {% set message = 'Fermée' %}
             {% set badgeColor = 'secondary' %}
             {% set badgeIcon = "fas fa-lock" %}
+            {% set title = "Vous ne pouvez pas encore pronostiquer cette rencontre" %}
         {% elseif predictionChecker.gameDeadLinePassed(game) and (userPrediction.goalsHome | default(null)) is not null %}
             {# Fermé avec pronostic validé #}
             {% set predictionDisplay = wcpc.prediction(userPredictions[game.id]) %}
             {% set message = predictionDisplay %}
             {% set badgeColor = 'success' %}
+            {% set title = "Votre pronostic a été validé, vous ne pouvez plus le modifier" %}
         {% elseif predictionChecker.gameDeadLinePassed(game) and userPrediction is null %}
-            BIM
             {# Fermé, pronostic raté #}
             {% set message = 'Raté!' %}
             {% set badgeColor = 'danger' %}
+            {% set title = "Aie : vous avez oublié de pronostiquer!" %}
         {% endif %}
-        <span title="Vous ne pouvez pas encore pronostiquer cette rencontre" class="prediction-badge badge bg-{{ badgeColor | default('danger')}}"><i class="fas fa-lock me-2"></i>{{ message | default('?')}}</span>
+        <span title="{{ title }}" class="prediction-badge badge bg-{{ badgeColor | default('danger')}}"><i class="fas fa-lock me-2"></i>{{ message | default('?')}}</span>
 
  {% endmacro %}
 
@@ -59,7 +59,7 @@
 {% endmacro gameResult %}
 
 {% macro comingNextAlert() %}
-    <div class="alert alert-warning"><i class="far fa-warning"></i> Ce panneau est en phase de reprise. Nous l'afficherons dès qu'il sera près physiquement à rentrer sur le terrain!</div>
+    <div class="alert alert-warning"><i class="fas fa-exclamation-circle"></i> Ce panneau est en phase de reprise. Nous l'afficherons dès qu'il sera près physiquement à rentrer sur le terrain!</div>
 {% endmacro comingNextAlert %}
 
 {% macro predictionResult(prediction) %}

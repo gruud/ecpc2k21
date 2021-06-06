@@ -5,8 +5,6 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Entity\User;
-use App\Entity\Game;
 
 /**
  * La classe Prediction implémente le pronostic d'un joueur pour une rencontre
@@ -127,7 +125,7 @@ class Prediction {
 
     /**
      * 
-     * @return type
+     * @return int
      */
     public function getGoalsHome() {
         return $this->goalsHome;
@@ -163,7 +161,7 @@ class Prediction {
      * même conventions que les résultats de la rencontre pour permettre un 
      * comparatif facile.
      * 
-     * @return Un entier représentant le résultat de la prédiction (1 N 2)
+     * @return int entier représentant le résultat de la prédiction (1 N 2)
      */
     public function getResult() {
         
@@ -208,15 +206,6 @@ class Prediction {
     public function setGame(Game $game) {
         $this->game = $game;
     }
-
-    /**
-     * Renvoie un nombre indiquant la validité du pronostic. 
-     * 
-     * @return integer Un entier représentant la validité du pronostic. 
-     */
-    public function getAccuracy() {
-        
-    }
     
     /**
      * Indique si le pronostic indique le bon vainqueur de la rencontre
@@ -240,7 +229,7 @@ class Prediction {
     
     /**
      * Indique si le pronostic est parfaitement exact
-     * @return type
+     * @return bool
      */
     public function isPerfectlyAccurate() {
         return ($this->game->getGoalsHome() == $this->getGoalsHome() &&

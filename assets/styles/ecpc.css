@@ -3,12 +3,7 @@ body, html {
 }
 
 body {
-    background: url('../images/bg.jpg') no-repeat center center fixed;
-    filter: contrast(80%);
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
+
 }
 
 .bg {
@@ -18,7 +13,7 @@ body {
     top: 0;
     z-index: -1;
     filter: contrast(80%);
-    background-image: url("../images/bg.jpg");
+    background-image: url("../images/bg2.png");
 
     /* Full height */
     height: 100vh;
@@ -33,12 +28,14 @@ body {
 
 h1.main-title {
     font-size: 3em;
-    color: #333377;
+    color: white;
+    text-shadow: 1px 1px 2px black;
 }
 
 h2.main-subtitle {
     font-size: 1em;
-    color: #111144;
+    color: white;
+    text-shadow: 1px 1px 2px black;
 }
 
 .card-header {

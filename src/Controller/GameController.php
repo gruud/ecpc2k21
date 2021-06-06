@@ -37,10 +37,10 @@ class GameController extends AbstractController {
         /** @var User $user */
         $user = $security->getUser();
         $userPredictions = $manager
-                ->getRepository('WCPC2K18Bundle:Prediction')
+                ->getRepository(Prediction::class)
                 ->findUserPredictionsIndexedByGameId($user);
 
-        return $this->render('WCPC2K18Bundle:Game:games_list.html.twig', [
+        return $this->render('game/games_list.html.twig', [
                     "games" => $games,
                     "predictionChecker" => $predictionChecker,
                     "userPredictions" => $userPredictions,

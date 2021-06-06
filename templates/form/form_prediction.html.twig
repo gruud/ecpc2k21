@@ -5,8 +5,8 @@
         <div class="offset-lg-3 col-lg-6 offset-md-2 col-md-8 offset-sm-1 col-sm-10 mt-3">
             <div class="card">
                 <div class="card-header">
-                    Votre pronostic pour {{ game.homeTeam.name }} <img  class="ml-1 mr-3" src="{{ asset(game.homeTeam | flag(32) ) }}" />
-                         - <img class="ml-3 mr-1" src="{{ asset(game.awayTeam | flag(32) ) }}" />{{ game.awayTeam.name }}
+                    Votre pronostic pour {{ game.homeTeam.name }} <img alt="Drapeau {{ game.homeTeam.name }}" class="ml-1 me-3" src="{{ asset(game.homeTeam | flag(32) ) }}" />
+                         - <img alt="Drapeau {{ game.awayTeam.name }}" class="ms-3 mr-1" src="{{ asset(game.awayTeam | flag(32) ) }}" />{{ game.awayTeam.name }}
                 </div>
                 <div class="card-body">
                     {{ form_start(form) }}
@@ -17,7 +17,7 @@
                     {% endif %}
                     {{ form_row(form.jackpot) }}
                         <div class="btn-group">
-                            {{ form_row(form.submit, {'attr' : {'class' : 'btn-success mr-3'} }) }}
+                            {{ form_row(form.submit, {'attr' : {'class' : 'btn-success me-1'} }) }}
                             {{ form_row(form.cancel) }}
                         </div>
                     {{ form_end(form) }}

@@ -1,4 +1,4 @@
-{% extends "WCPC2K18Bundle:Base:layout.html.twig" %}
+{% extends "layout.html.twig" %}
 
 {% block content %}
 <div class="row">
@@ -8,7 +8,7 @@
                 <i class="far fa-calendar"></i> Détail des rencontres
             </div>
             <div class="card-body">
-                {% include 'games_item_list.html.twig' %}
+                {% include 'game/games_item_list.html.twig' %}
               
             </div>
         </div>

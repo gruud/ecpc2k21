@@ -46,11 +46,9 @@ class ChartManager {
      * Couleur pour les résultats trouvés
      */
     const PIE_COLOR_WINNER = '#333333';
-            
-   
     
     public function __construct() {
-        
+
     }
     
     /**
@@ -59,27 +57,7 @@ class ChartManager {
      * @param Game $game La rencontre pour laquelle compiler les données
      */
     public static function getPredictionResultChartData(Game $game) {
-        $data = [
-            "labels" => [
-                "Vainqueur trouvé",
-                "Différence de buts trouvée",
-                "Score exact trouvé",
-                
-                
-            ]
-        ];
-        
-        $predictionsCount = count($game->getPredictions());
-        $predictionsTypesCount = [0,0,0];
-        foreach ($game->getPredictions() as $prediction) {
-         
-        }
-        
-        $data['datasets'] = [[
-            'data' => [
 
-                ]
-        ]];
     }
     
     /**
@@ -92,8 +70,8 @@ class ChartManager {
             "labels" => [
                 "Victoire " . $game->getHomeTeam()->getName() . "(%)",
                 "Victoire " . $game->getAwayTeam()->getName() . "(%)",
-                "Match nul (%)" 
-            ] 
+                "Match nul (%)"
+            ]
         ];
         
         $predictionsCount = count($predictions);
@@ -104,9 +82,9 @@ class ChartManager {
         
             // On utilise ici le fait que le résultat d'une prédiction sort
             // sous la forme d'un entier. On incrémente donc le chiffre correspondant
-            // à l'indice de l'entier de résultat. 
+            // à l'indice de l'entier de résultat.
             $stats = [0,0,0];
-            
+
             foreach ($predictions as $prediction) {
                 $stats[$prediction->getResult()]++;
             }
@@ -125,7 +103,7 @@ class ChartManager {
                 
             ]];
         }
-        
+
         return json_encode($data);
     }
     

@@ -15,14 +15,10 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
-###> phpunit/phpunit ###
-/phpunit.xml
-.phpunit.result.cache
-###< phpunit/phpunit ###
-
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
 /public/assets/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+/src/DataFixtures/data/users.json

@@ -18,6 +18,4 @@ import './bootstrap';
 
 // Imports complémentaires
 import 'bootstrap';
-import 'toastr';
-import 'chart.js';
 import '@fortawesome/fontawesome-free';

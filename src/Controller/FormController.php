@@ -97,6 +97,10 @@ class FormController extends AbstractController {
                 $session->getFlashBag()->add('success', $this->getPredictionSuccessMessage($prediction));
                 return $this->redirectToSource($request);
             }
+
+            if ($form->getClickedButton()->getName() === 'cancel') {
+                return $this->redirectToSource($request);
+            }
         }
         
         //4. Mise en place du formulaire
@@ -146,8 +150,8 @@ class FormController extends AbstractController {
                 $leaderBoardManager->computeLeaderboard();
                 $manager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->getGameSuccessMessage($game));
+            }
 
-            } 
             return $this->redirectToSource($request);
         }
         
