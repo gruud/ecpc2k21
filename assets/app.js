@@ -4,6 +4,8 @@
  * We recommend including the built version of this JavaScript file
  * (and its CSS file) in your base layout (base.html.twig).
  */
+import  {TrendChart} from './modules/TrendChart';
+
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
@@ -17,5 +19,10 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import './bootstrap';
 
 // Imports complémentaires
+import Chart from 'chart.js';
 import 'bootstrap';
 import '@fortawesome/fontawesome-free';
+
+(new TrendChart()).init();
+
+

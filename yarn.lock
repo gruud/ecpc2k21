@@ -947,9 +947,6 @@
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
 
-"@symfony/ux-chartjs@file:vendor/symfony/ux-chartjs/Resources/assets":
-  version "1.1.0"
-
 "@symfony/webpack-encore@^1.0.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@symfony/webpack-encore/-/webpack-encore-1.4.0.tgz#9b5e1628a99029166f7a41f7e9bf46208b1daca4"
@@ -2994,7 +2991,7 @@ jest-worker@^27.0.2:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
-jquery@>=1.12.0:
+jquery@>=1.12.0, jquery@^3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
   integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==

@@ -60,7 +60,6 @@ class GameController extends AbstractController {
         int $gameId,
         $trendsDatapoolMinSize
     ) {
-
         //Récupération de la rencontre
         $game = $manager->getRepository(Game::class)->find($gameId);
         if (null === $game) {
@@ -73,8 +72,6 @@ class GameController extends AbstractController {
 
         $trendsData = $chartManager::getPredictionTrendsChartData($game, $predictions, $trendsDatapoolMinSize);
 
-        
-       
         return $this->render("game/game.html.twig", [
             "game" => $game,
             "predictions" => $predictions,

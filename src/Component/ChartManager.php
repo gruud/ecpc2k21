@@ -103,7 +103,6 @@ class ChartManager {
                 
             ]];
         }
-
         return json_encode($data);
     }
     

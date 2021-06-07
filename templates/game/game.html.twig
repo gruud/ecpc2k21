@@ -19,16 +19,3 @@
     </div>
     
 {% endblock content %}
-
-{% block javascripts %}
-    {{ parent() }}
-    {% if predictions | length >= predictionPoolMinSize %}
-    <script>
-        /*
-        let data = {{ trendsData | raw }};
-        console.log(data);
-        createGameTrendChart("trendsChart", data);
-        */
-    </script>
-    {% endif %}
-{% endblock javascripts %}
