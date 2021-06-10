@@ -7,22 +7,23 @@ body {
 }
 
 .bg {
-    /* The image used */
-    position: absolute;
-    left: 0;
-    top: 0;
+
+    position: fixed;
     z-index: -1;
-    filter: contrast(80%);
-    background-image: url("../images/bg2.png");
-
-    /* Full height */
     height: 100vh;
-    width: 100vw;
-
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: repeat-y;
+    background: #000 url("../images/bg2.png") center center;
+    width: 100%;
+    min-height:100%;
     background-size: cover;
+    overflow: hidden;
+
+
+
+}
+
+.bg-yellow {
+    background-color: #ffc107;
+    color: black;
 }
 
 
@@ -46,6 +47,11 @@ h2.main-subtitle {
 
 
 .next-games-panel-body {
+    overflow-y: scroll;
+    height: 400px;
+}
+
+.prediction-panel-body {
     overflow-y: scroll;
     height: 400px;
 }
@@ -86,4 +92,41 @@ h2.main-subtitle {
 a {
     font-weight: normal;
     color : #333;
+    text-decoration: none;
+}
+
+.time-left {
+    color: #aaa;
+    font-style: italic;
+}
+
+.fixed-leaderboard-number {
+    width: 30px;
+}
+
+.fixed-leaderboard-user {
+    width: 300px;
+}
+
+.fixed-leaderboard {
+    text-align: center;
+    width:100px;
+}
+
+th.fixed-leaderboard {
+    font-size: 0.7em;
+}
+
+.link {
+    float: right;
+    text-align: right;
+}
+
+.link:before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f1e3";
+    display: inline-block;
+    padding-right: 3px;
+    vertical-align: middle;
+    font-weight: 900;
 }

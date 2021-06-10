@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Component\PredictionChecker;
+use App\Entity\Leaderboard;
 use App\Entity\User;
 use App\Form\GameType;
 use App\Form\PredictionType;

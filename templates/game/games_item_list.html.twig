@@ -21,11 +21,12 @@
             <td class="game-id"><a href="{{ path('ecpc_game', { 'gameId' : game.id } ) }}">Match {{ game.id }}</a><br><span class="subheader">{{ game.phase }}</span></td>
             <td class="game-date"><i class="far fa-clock"></i> {{ game.kickoff | date('d/m H:i') }}</td>
             <td class="text-end">{{ game.homeTeam.name }}<img class="ms-3" src="{{ asset(game.homeTeam | flag(32) ) }}" /></td>
-            <td class="text-center">{{ wcpc.gameResult(game) }}</td>
+            <td class="text-center"><a href="{{ path('ecpc_game', {'gameId' : game.id}) }}">{{ wcpc.gameResult(game) }}</a></td>
             <td class=""><img class="me-3 d-none d-lg-inline" src="{{ asset(game.awayTeam | flag(32) ) }}"/>{{ game.awayTeam.name }}</td>
             <td>
                 {% if predictionChecker.canPredict(game) %}
                     {{ wcpc.predictionButton(game, userPredictions) }}
+                    <div class="time-left subheader"><i class="fas fa-clock"></i> Clôture dans {{ predictionChecker.timeLeftForPrediction(game) | timeLeft }}</div>
                 {% else %}
                     {{ wcpc.predictionBadge(game, userPredictions, predictionChecker) }}
                 {% endif %}

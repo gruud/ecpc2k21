@@ -23,8 +23,8 @@ class LeaderboardRepository extends EntityRepository {
         $qb = $this->createQueryBuilder('l');
         $qb->join('l.user', 'u')->addSelect('u');
         $qb->orderBy('l.points', "DESC")
-                ->addOrderBy('u.firstName', "ASC")
-                ->addOrderBy('u.lastName', "ASC");
+                ->addOrderBy('u.lastName', "ASC")
+                ->addOrderBy('u.firstName', "ASC");
         
         return $qb->getQuery()->getResult();
     }

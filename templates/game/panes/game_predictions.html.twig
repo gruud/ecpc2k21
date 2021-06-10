@@ -4,7 +4,7 @@
     <div class="card-header">
         <i class="far fa-calendar"></i> Pronostics
     </div>
-    <div class="card-body">
+    <div class="card-body prediction-panel-body">
         {% if not game.hasStarted %}
             <div class="alert alert-warning">Les pronostics de tous les joueurs seront
             affichés une fois la rencontre commencée.</div>
@@ -20,7 +20,7 @@
                 <tbody>
                     {% for prediction in predictions %}
                         <tr>
-                            <td><a href="{{ path('wcpc2k18_user', {'userId' : prediction.user.id } ) }}">{{ wcpc.username(prediction.user) }}</a></td>
+                            <td><a href="{{ path('ecpc_user', {'userId' : prediction.user.id } ) }}">{{ wcpc.username(prediction.user) }}</a></td>
                             <td>{{ wcpc.prediction(prediction) }} </td>
                             <td>{% if game.goalsHome is not null %}
                                 {{ prediction.points }}{% if prediction.isPerfectlyAccurate %} <i class="fas fa-star"></i>{% endif %}

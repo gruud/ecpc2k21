@@ -39,13 +39,13 @@
             {% set message = predictionDisplay %}
             {% set badgeColor = 'success' %}
             {% set title = "Votre pronostic a été validé, vous ne pouvez plus le modifier" %}
-        {% elseif predictionChecker.gameDeadLinePassed(game) and userPrediction is null %}
+        {% elseif predictionChecker.gameDeadLinePassed(game) and (userPrediction is null or userPrediction == "") %}
             {# Fermé, pronostic raté #}
             {% set message = 'Raté!' %}
             {% set badgeColor = 'danger' %}
             {% set title = "Aie : vous avez oublié de pronostiquer!" %}
         {% endif %}
-        <span title="{{ title }}" class="prediction-badge badge bg-{{ badgeColor | default('danger')}}"><i class="fas fa-lock me-2"></i>{{ message | default('?')}}</span>
+        <span title="{{ title | default("")}}" class="prediction-badge badge bg-{{ badgeColor | default('danger')}}"><i class="fas fa-lock me-2"></i>{{ message | default('?')}}</span>
 
  {% endmacro %}
 

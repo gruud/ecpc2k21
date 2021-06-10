@@ -150,4 +150,20 @@ class PredictionChecker {
         
         return $predictionWithJackpot !== null;
     }
+
+    /**
+     * Récupère le temps retant pour effectuer le pronostic avant clôture
+     * @param Game $game
+     */
+    public function getTimeLeftForPrediction(Game $game) {
+        $now = new \DateTime();
+        $gameDate = $game->getKickoff();
+        $predictionEndDate = $gameDate->sub(new DateInterval("PT1H"));
+
+        $timeLeft = $now->diff($predictionEndDate);
+        return $timeLeft;
+
+
+
+    }
 }

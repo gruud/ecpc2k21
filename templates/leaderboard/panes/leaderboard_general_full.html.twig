@@ -1,0 +1,59 @@
+{% import 'macro/macros.html.twig' as wcpc %}
+
+
+<div class="card mt-3">
+    <div class="card-header">
+        <i class="far fa-calendar"></i> Classement général individuel
+    </div>
+    <div class="card-body">
+        {% if leaderboard | length > 0 %}
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Joueur</th>
+                    <th class="fixed-leaderboard" title="Nombre de prédictions réalisées">Joués</th>
+                    <th class="fixed-leaderboard" title="Nombre de prédictions ayant rapporté des points ">Gagnants</th>
+                    <th class="fixed-leaderboard" title="Nombre de prédictions n'ayant pas rapporté de points">Perdants</th>
+                    <th class="fixed-leaderboard" title="Nombre de prédictions où le participant à trouvé le gagnant uniquement">Gagnant trouvé</th>
+                    <th class="fixed-leaderboard" title="Nombre de prédictions où le participant a trouvé le gagnant et la différence de buts">GA trouvé</th>
+                    <th class="fixed-leaderboard" title="Nombre de prédictions où le participant a trouvé le score parfait">Score parfait</th>
+                    <th class="fixed-leaderboard" title="Nombre de fois où le participant a misé double">Jackpots joués</th>
+                    <th class="fixed-leaderboard" title="Nombre de fois où le participant a gagné des points en misant double">Jackpots gagnés</th>
+                    <th class="fixed-leaderboard">Points</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% set previousPoints = 0 %}
+                
+                {% for lbitem in leaderboard %}
+                    <tr{% if lbitem.user.id == app.user.id %} class="leaderboard-connected-user"{% endif %}>
+                        <td class="fixed-leaderboard-number">
+                            {% if previousPoints == lbitem.points %}
+                                &nbsp;
+                            {% else %}
+                                {{ loop.index }}
+                            {% endif %}
+                        </td>
+                        <td><a href="{{ path('ecpc_user', {'userId' : lbitem.user.id}) }}">{{ wcpc.username(lbitem.user) }}</a></td>
+                        <td class="fixed-leaderboard">{{ lbitem.playedCount }}</td>
+                        <td class="fixed-leaderboard">{{ lbitem.winCount }}</td>
+                        <td class="fixed-leaderboard">{{ lbitem.loseCount }}</td>
+                        <td class="fixed-leaderboard">{{ lbitem.winnerAccurateCount }}</td>
+                        <td class="fixed-leaderboard">{{ lbitem.goalAverageAccurateCount }}</td>
+                        <td class="fixed-leaderboard">{{ lbitem.perfectCount }}</td>
+                        <td class="fixed-leaderboard">{{ lbitem.jackpotPlayedCount }}</td>
+                        <td class="fixed-leaderboard">{{ lbitem.jackpotPointsCount }}</td>
+                        <td class="fixed-leaderboard">{{ lbitem.points }}</td>
+                    </tr>
+                    {% set previousPoints = lbitem.points %}
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <div class="alert alert-warning text-justify">Le classement n'est pas disponible pour l'instant. Il apparaîtra dès qu'une rencontre aura été jouée</div>
+        {% endif %}
+    </div>
+</div>

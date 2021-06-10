@@ -77,14 +77,10 @@ class CreateUserCommand extends Command {
         $user->setLastName($input->getArgument('lastName'));
         $user->setDepartment($input->getArgument('department'));
         $user->setCrew($crew);
-        if ($input->hasOption('admin')) {
-            $user->setRoles(['ROLE_ADMIN']);
-        }
 
         $this->manager->persist($user);
         $this->manager->flush();
 
         return 0;
     }
-
 }

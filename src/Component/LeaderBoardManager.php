@@ -3,7 +3,6 @@
 
 namespace App\Component;
 
-
 use App\Entity\Crew;
 use App\Entity\User;
 use Doctrine\ORM\EntityManager;
@@ -93,7 +92,7 @@ class LeaderBoardManager {
             echo "Prise en compte de la rencontre $game \n";
             foreach ($game->getPredictions() as $prediction) {
                 echo "  - Traitement de la prédiction " .  $prediction . "\n";
-                $points = $this->computePointsForPrediction($game, $prediction);
+                $points = $this->computePointsForPrediction($game, $prediction, $leaderboard[$prediction->getUser()->getId()]);
                 echo "    - Points gagnés : " . $points . "\n";
                 $userLb = $leaderboard[$prediction->getUser()->getId()];
                 $userLb->addPoints($points);
@@ -159,26 +158,45 @@ class LeaderBoardManager {
      * @param Game $game
      * @param Prediction $prediction
      */
-    private function computePointsForPrediction(Game $game, Prediction $prediction) {
+    private function computePointsForPrediction(Game $game, Prediction $prediction, Leaderboard $leaderboard) {
         $points = 0;
+
+        $leaderboard->incrementPlayedCount();
         
         if ($prediction->isPerfectlyAccurate()) {
             $points = $game->getRule()->getPointsForPerfect();
+            $leaderboard->incrementPerfectCount();
+
         }
         elseif ($prediction->isGoalAverageAccurate()) {
             $points = $game->getRule()->getPointsForCorrectGA();
+            $leaderboard->incrementGoalAverageAccurateCount();
         }
         elseif ($prediction->isWinnerAccurate()) {
             $points = $game->getRule()->getPointsForCorrectWinner();
+            $leaderboard->incrementWinnerAccurateCount();
         }
         
         //Application du coefficient multiplicateur si l'utilisateur a joué
         // un jackpot et que l'application de ce jackpot est possible
+
         if ($game->getRule()->isJackpotEnabled() && $prediction->getJackpot()) {
             $points *= $game->getRule()->getJackpotMultiplicator();
+            $leaderboard->incrementJackpotPlayedCount();
+            if ($points > 0) {
+                $leaderboard->incrementJackpotPointsCount();
+            }
+        }
+
+        if ($points > 0) {
+            $leaderboard->incrementWinCount();
+        } else {
+            $leaderboard->incrementLoseCount();
         }
         
         return $points;
     }
+
+
 
 }

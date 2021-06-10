@@ -41,12 +41,40 @@ class HomeController extends AbstractController {
                 ->findUserPredictionsIndexedByGameId($user);
         
         //2. Récupération du classement général
+        /** @var Leaderboard[] $leaderboard */
         $leaderboard = $manager->getRepository(Leaderboard::class)
                 ->getFullLeaderboardOrderedForGeneral();
+
+        // Récupération de la position de l'utilisateur dans la liste pour déterminer les index de début et de fin
+        // d'affichage
+
+        $position = 0;
+        for ($i = 0; $i < count($leaderboard); $i++) {
+
+            $lbitem = $leaderboard[$i];
+            if ($lbitem->getUser()->getId() == $user->getId()) {
+                $position = $i;
+            }
+        }
+
+        $lbStartPos = 0;
+        $lbEndPos = 0;
+        if ($position > 0) {
+            $lbStartPos = ($position - 3 > 0 ? $position - 3 : 0);
+            $lbEndPos = ($position + 3 < count($leaderboard) ? $position + 3 : count($leaderboard) - 1);
+        }
         
         
         
     return $this->render('home/home.html.twig',
-            compact('nextGames', 'lastGames', 'predictionChecker', 'userPredictions', 'leaderboard'));
+            compact(
+                'nextGames',
+                'lastGames',
+                'predictionChecker',
+                'userPredictions',
+                'leaderboard',
+                'lbStartPos',
+                'lbEndPos'
+            ));
     }
 }
