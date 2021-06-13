@@ -61,7 +61,7 @@ class HomeController extends AbstractController {
         $lbEndPos = 0;
         if ($position > 0) {
             $lbStartPos = ($position - 3 > 0 ? $position - 3 : 0);
-            $lbEndPos = ($position + 3 < count($leaderboard) ? $position + 3 : count($leaderboard) - 1);
+            $lbEndPos = ($position + 3 <= count($leaderboard) ? $position + 3 : count($leaderboard));
         }
         
         

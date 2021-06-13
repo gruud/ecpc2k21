@@ -13,19 +13,18 @@
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab" aria-controls="home" aria-selected="true">Général individuel</button>
+                        <button class="nav-link{% if pane == 'general' %} active{% endif %}" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab" aria-controls="home" aria-selected="true">Général individuel</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="team-tab" data-bs-toggle="tab" data-bs-target="#team" type="button" role="tab" aria-controls="profile" aria-selected="false">Classement par service</button>
+                        <button class="nav-link{% if pane == 'crew' %} active{% endif %}" id="team-tab" data-bs-toggle="tab" data-bs-target="#team" type="button" role="tab" aria-controls="profile" aria-selected="false">Classement par service</button>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="tab-pane fade{% if pane == 'general' %} show active{% endif %}" id="general" role="tabpanel" aria-labelledby="home-tab">
                         {% include 'leaderboard/panes/leaderboard_general_full.html.twig' %}
                     </div>
-                    <div class="tab-pane fade" id="team" role="tabpanel" aria-labelledby="profile-tab">
-                        {{ wcpc.comingNextAlert() }}
-                        {#  {% include 'leaderboard/panes/leaderboard_crew.html.twig' %} #}
+                    <div class="tab-pane fade{% if pane == 'crew' %} show active{% endif %}" id="team" role="tabpanel" aria-labelledby="profile-tab">
+                        {% include 'leaderboard/panes/leaderboard_crew.html.twig' %}
                     </div>
                 </div>
             </div>

@@ -4,12 +4,15 @@
 namespace App\Component;
 
 use App\Entity\Crew;
+use App\Entity\CrewLeaderboard;
 use App\Entity\User;
+use Doctrine\Common\Util\Debug;
 use Doctrine\ORM\EntityManager;
 use App\Entity\Leaderboard;
 use App\Entity\Game;
 use App\Entity\Prediction;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Util\Xml\Exception;
 
 /**
  * La classe LeaderBoardManager implémente le service de gestion des classements.
@@ -86,14 +89,9 @@ class LeaderBoardManager {
         $leaderboard = $this->manager->getRepository(Leaderboard::class)
                 ->findIndexedByUserIdArray();
         
-        echo "Nombre de rencontres prises en compte pour le recalcul : " . count($games) . "\n";
-        
         foreach($games as $game) {
-            echo "Prise en compte de la rencontre $game \n";
             foreach ($game->getPredictions() as $prediction) {
-                echo "  - Traitement de la prédiction " .  $prediction . "\n";
                 $points = $this->computePointsForPrediction($game, $prediction, $leaderboard[$prediction->getUser()->getId()]);
-                echo "    - Points gagnés : " . $points . "\n";
                 $userLb = $leaderboard[$prediction->getUser()->getId()];
                 $userLb->addPoints($points);
                 $prediction->setPoints($points);
@@ -105,15 +103,23 @@ class LeaderBoardManager {
     
     
     /**
-     * Réinitialise le classement
+     * Réinitialise entièrement le classement par équipe en supprimant toutes les
+     * données
      */
     public function initCrewLeaderboard() {
-        $crews = $this->manager->getRepository(Crew::class)->findAll();
-        foreach ($crews as $crew) {
-            $crew->setPoints(0);
+        $crewLeaderboard = $this->manager->getRepository(CrewLeaderboard::class)->findAll();
+        foreach ($crewLeaderboard as $citem) {
+            $this->manager->remove($citem);
         }
         
         $this->manager->flush();
+
+        $crews = $this->manager->getRepository(Crew::class)->findAll();
+        foreach($crews as $crew) {
+            $clb = new CrewLeaderboard();
+            $clb->setCrew($crew);
+            $clb->setPoints(0.0);
+        }
     }
     
     /**
@@ -123,33 +129,26 @@ class LeaderBoardManager {
      */
     public function computeCrewLeaderboard() {
 
-        echo "Calcul des points par équipes \n";
         $this->initCrewLeaderboard();
-        
-        //Récupération du classement général
-        $leaderboard = $this->manager->getRepository(Leaderboard::class)
-                ->findAll();
-        
-        /* @var $lbItem Leaderboard */
-        $crewPoints = [];
+
+        $leaderboard = $this->manager
+            ->getRepository(Leaderboard::class)
+            ->findForCrewLeaderboardCalculation();
+
+
+
         foreach ($leaderboard as $lbItem) {
-            $crew = $lbItem->getUser()->getCrew();
-            if (!array_key_exists($crew->getName(), $crewPoints)) {
-                $crewPoints[$crew->getName()] = 0;
-            }
-            $crewPoints[$crew->getName()] += $lbItem->getPoints();
+            $avg = $lbItem['avg'];
+            $crew = $this->manager->getRepository(Crew::class)->findOneByName($lbItem['name']);
+            $crewLb = new CrewLeaderboard();
+            $crewLb->setPoints($avg);
+            $crewLb->setCrew($crew);
+            $crew->setLeaderboard($crewLb);
+            $this->manager->persist($crewLb);
         }
-        
-        $crews = $this->manager->getRepository(Leaderboard::class)->findAll();
-        /* @var $crew \WCPC2K18Bundle\Entity\Crew */
-        foreach ($crews as $crew) {
-            echo "Points de l'équipe " . $crew->getName() . " : " . $crewPoints[$crew->getName()] . " (" . count($crew->getUsers()) . " utilisateurs)";
-            $finalPoints = $crewPoints[$crew->getName()] / count($crew->getUsers());
-            echo "Moyenne calculée : " . $finalPoints . "\n";
-            $crew->setPoints($finalPoints);
-        }
-        
+
         $this->manager->flush();
+
     }
     
     /**
@@ -196,7 +195,4 @@ class LeaderBoardManager {
         
         return $points;
     }
-
-
-
 }

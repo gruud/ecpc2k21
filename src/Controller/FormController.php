@@ -149,6 +149,7 @@ class FormController extends AbstractController {
         if ($form->isSubmitted()) {
             if ($form->getClickedButton()->getName() == "submit" && $form->isValid()) {
                 $leaderBoardManager->computeLeaderboard();
+                $leaderBoardManager->computeCrewLeaderboard();
                 $manager->flush();
                 $this->get('session')->getFlashBag()->add('success', $this->getGameSuccessMessage($game));
             }

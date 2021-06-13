@@ -18,9 +18,9 @@
             <tbody>
                 
                 {% set previousPoints = 0 %}
+                {% set currPos = 1 %}
                 
                 {% for lbitem in leaderboard %}
-
                     {% if previousPoints == lbitem.points %}
                         {% set rankDisplay = currPos %}
                     {% else %}
@@ -28,18 +28,19 @@
                         {% set rankDisplay = loop.index %}
                     {% endif %}
 
+
                     {% if loop.index >= lbStartPos and loop.index <= lbEndPos %}
                     <tr{% if lbitem.user.id == app.user.id %} class="leaderboard-connected-user"{% endif %}>
                         <td> {{ rankDisplay }}</td>
                         <td><a href="{{ path('ecpc_user', {'userId' : lbitem.user.id}) }}">{{ wcpc.username(lbitem.user) }}</a></td>
                         <td>{{ lbitem.points }}</td>
                     </tr>
-                    {% set previousPoints = lbitem.points %}
                     {% endif %}
+                    {% set previousPoints = lbitem.points %}
                 {% endfor %}
             </tbody>
         </table>
-            <a href="{{ path('ecpc_leaderboards') }}" class="link link-dark">Voir le classement complet</a>
+            <a href="{{ path('ecpc_leaderboards', {'pane' : 'general'}) }}" class="link link-dark">Voir le classement complet</a>
         {% else %}
             <div class="alert alert-warning text-justify">Le classement n'est pas disponible pour l'instant. Il apparaîtra dès qu'une rencontre aura été jouée</div>
         {% endif %}

@@ -1,4 +1,4 @@
-{% import 'WCPC2K18Bundle:Base:macros.html.twig' as wcpc %}
+{% import 'macro/macros.html.twig' as wcpc %}
 
 
 <div class="card mt-3">
@@ -9,17 +9,22 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <td>#</td>
                     <td>Service</td>
                     <td>Points</td>
                 </tr>
             </thead>
             <tbody>
-                {% for crew in crews %}
-                    {% if crew.users | length >= 3 %}
+            {% set rank = 1 %}
+                {% for crewLb in crewLeaderboard %}
+
+                    {% if crewLb.crew.users | length >= 4 %}
                     <tr>
-                        <td>{{ crew.name }}</td>
-                        <td>{{ crew.points | number_format(2,".", "") }}</td>
+                        <td>{{ rank }}</td>
+                        <td>{{ crewLb.crew.name }}</td>
+                        <td>{{ crewLb.points | number_format(2,".", "") }}</td>
                     </tr>
+                        {% set rank = rank + 1 %}
                     {% endif %}
                 {% endfor %}
             </tbody>

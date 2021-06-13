@@ -48,6 +48,13 @@ class Crew {
      * @ORM\OneToMany(targetEntity="User", mappedBy="crew")
      */
     private $users;
+
+    /**
+     * @var CrewLeaderboard Le classement de l'équipe
+     *
+     * @ORM\OneToOne(targetEntity="App\Entity\CrewLeaderboard", inversedBy="crew")
+     */
+    private $leaderboard;
     
     
     
@@ -127,4 +134,17 @@ class Crew {
         $this->users->removeElement($user);
     }
 
+    /**
+     * @return CrewLeaderboard
+     */
+    public function getLeaderboard(): CrewLeaderboard {
+        return $this->leaderboard;
+    }
+
+    /**
+     * @param CrewLeaderboard $leaderboard
+     */
+    public function setLeaderboard(CrewLeaderboard $leaderboard): void {
+        $this->leaderboard = $leaderboard;
+    }
 }

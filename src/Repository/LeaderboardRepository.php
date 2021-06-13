@@ -48,4 +48,16 @@ class LeaderboardRepository extends EntityRepository {
         
         return $lbArray;
     }
+
+    public function findForCrewLeaderboardCalculation() {
+        $qb = $this->createQueryBuilder('l');
+        $qb->leftJoin('l.user', 'u');
+        $qb->leftJoin('u.crew', 'c');
+        $qb->select('AVG(l.points) as avg');
+        $qb->addSelect('c.name');
+        $qb->groupBy('c.name');
+        $qb->orderBy('avg', 'DESC');
+        $qb->addOrderBy('c.name', 'ASC');
+        return $qb->getQuery()->getResult();
+    }
 }
