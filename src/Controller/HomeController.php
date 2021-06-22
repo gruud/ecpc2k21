@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Component\PredictionChecker;
+use App\Entity\CrewLeaderboard;
 use App\Entity\Game;
 use App\Entity\Leaderboard;
 use App\Entity\Prediction;
@@ -45,6 +46,9 @@ class HomeController extends AbstractController {
         $leaderboard = $manager->getRepository(Leaderboard::class)
                 ->getFullLeaderboardOrderedForGeneral();
 
+        $crewLeaderboard = $manager->getRepository(CrewLeaderboard::class)
+            ->findAllForCrewLeaderboardDisplay();
+
         // Récupération de la position de l'utilisateur dans la liste pour déterminer les index de début et de fin
         // d'affichage
 
@@ -74,7 +78,8 @@ class HomeController extends AbstractController {
                 'userPredictions',
                 'leaderboard',
                 'lbStartPos',
-                'lbEndPos'
+                'lbEndPos',
+                'crewLeaderboard'
             ));
     }
 }
