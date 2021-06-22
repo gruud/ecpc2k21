@@ -6,13 +6,11 @@ namespace App\Component;
 use App\Entity\Crew;
 use App\Entity\CrewLeaderboard;
 use App\Entity\User;
-use Doctrine\Common\Util\Debug;
 use Doctrine\ORM\EntityManager;
 use App\Entity\Leaderboard;
 use App\Entity\Game;
 use App\Entity\Prediction;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\Util\Xml\Exception;
 
 /**
  * La classe LeaderBoardManager implémente le service de gestion des classements.
@@ -108,7 +106,9 @@ class LeaderBoardManager {
      */
     public function initCrewLeaderboard() {
         $crewLeaderboard = $this->manager->getRepository(CrewLeaderboard::class)->findAll();
+        /** @var CrewLeaderboard $citem */
         foreach ($crewLeaderboard as $citem) {
+            $citem->getCrew()->removeLeaderboard();
             $this->manager->remove($citem);
         }
         
@@ -125,28 +125,68 @@ class LeaderBoardManager {
     /**
      * Recalcule le classement par équipe. Le classement par équipe est calculé
      * en réalisant la moyenne des points obtenus par l'ensemble des membres 
-     * de l'équipe. 
+     * de l'équipe sur les pronostics réalisés
      */
     public function computeCrewLeaderboard() {
 
         $this->initCrewLeaderboard();
 
-        $leaderboard = $this->manager
-            ->getRepository(Leaderboard::class)
-            ->findForCrewLeaderboardCalculation();
+        $predictions = $this->manager->getRepository(Prediction::class)->findForCrewLeaderboard();
+
+        $lbarray = [];
+
+        // On trie chaque prédiction par équipe et par phase
+        /** @var Prediction $prediction */
+        foreach ($predictions as $prediction) {
+            $crew = $prediction->getUser()->getCrew();
+            $crewName = $crew->getName();
+            $gameId = $prediction->getGame()->getId();
+
+            if (! array_key_exists($crewName, $lbarray)) {
+                $lbarray[$crewName] = [
+                    "crew" => $crew,
+                    "games" => []
+                ];
+            }
+
+            if (! array_key_exists($gameId, $lbarray[$crewName]['games'])) {
+                $lbarray[$crewName]['games'][$gameId] = [];
+                $lbarray[$crewName]['games'][$gameId]['_count'] = 0;
+                $lbarray[$crewName]['games'][$gameId]['_sum'] = 0;
+                $lbarray[$crewName]['games'][$gameId]['_avg'] = 0.0;
+            }
+
+            if ($prediction->getPoints() != -1) {
+                $lbarray[$crewName]['games'][$gameId]['_count'] += 1;
+                $lbarray[$crewName]['games'][$gameId]['_sum'] += $prediction->getPoints();
+            }
 
 
 
-        foreach ($leaderboard as $lbItem) {
-            $avg = $lbItem['avg'];
-            $crew = $this->manager->getRepository(Crew::class)->findOneByName($lbItem['name']);
-            $crewLb = new CrewLeaderboard();
-            $crewLb->setPoints($avg);
-            $crewLb->setCrew($crew);
-            $crew->setLeaderboard($crewLb);
-            $this->manager->persist($crewLb);
         }
 
+        $lbpoints = [];
+
+        foreach ($lbarray as $cCrewName => $cCrewItem) {
+            $crew = $cCrewItem['crew'];
+            $lbpoints[$cCrewName]['crew'] = $crew;
+            $lbpoints[$cCrewName]['points'] = 0.0;
+            foreach ($cCrewItem['games'] as $cGameId => $game) {
+                $count = $lbarray[$cCrewName]['games'][$cGameId]['_count'];
+                if ($count != 0) {
+                    $lbarray[$cCrewName]['games'][$cGameId]['_avg'] =
+                        $lbarray[$cCrewName]['games'][$cGameId]['_sum'] / $lbarray[$cCrewName]['games'][$cGameId]['_count'];
+                    $lbpoints[$cCrewName]['points'] += $lbarray[$cCrewName]['games'][$cGameId]['_avg'];
+                }
+            }
+        }
+
+        foreach ($lbpoints as $lbpoint) {
+            $cl = new CrewLeaderboard();
+            $cl->setCrew($lbpoint['crew']);
+            $cl->setPoints($lbpoint['points']);
+            $this->manager->persist($cl);
+        }
         $this->manager->flush();
 
     }

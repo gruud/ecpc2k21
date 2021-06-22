@@ -142,9 +142,13 @@ class Crew {
     }
 
     /**
-     * @param CrewLeaderboard $leaderboard
+     * @param CrewLeaderboard|null $leaderboard
      */
-    public function setLeaderboard(CrewLeaderboard $leaderboard): void {
+    public function setLeaderboard(?CrewLeaderboard $leaderboard): void {
         $this->leaderboard = $leaderboard;
+    }
+
+    public function removeLeaderboard() {
+        $this->leaderboard = null;
     }
 }

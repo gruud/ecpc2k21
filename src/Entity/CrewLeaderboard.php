@@ -78,5 +78,4 @@ class CrewLeaderboard {
     public function setPoints(float $points): void {
         $this->points = $points;
     }
-
 }

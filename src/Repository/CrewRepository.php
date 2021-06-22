@@ -23,8 +23,5 @@ class CrewRepository extends EntityRepository {
         $qb->addOrderBy('u.lastName', 'ASC')->addOrderBy('u.firstName', 'ASC');
         
         return $qb->getQuery()->getResult();
-        
     }
-    
-
 }

@@ -80,6 +80,16 @@ class PredictionRepository extends EntityRepository{
         
         return $predictionsArray;
     }
+
+    public function findForCrewLeaderboard() {
+        $qb = $this->createQueryBuilder('p');
+        $qb->leftJoin('p.game', 'g')->addSelect('g');
+        $qb->leftJoin('p.user', 'u');
+        $qb->leftJoin('u.crew', 'c')->addSelect('u')->addSelect('c');
+        $qb->orderBy('g.id', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
     
     /**
      * Récupère les rencontres d'une journée $day donnée pour lesquelles l'utilisateur
